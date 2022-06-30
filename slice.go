@@ -15,6 +15,26 @@ func Map[T any, R any](xs []T, f func(T) R) []R {
 	return ys
 }
 
+func MapIndexed[T any, R any](xs []T, f func(int, T) R) []R {
+	ys := make([]R, len(xs))
+	for i, x := range xs {
+		ys[i] = f(i, x)
+	}
+	return ys
+}
+
+func MapUntil[T any, R any](xs []T, f func(int, T) (R, error)) ([]R, error) {
+	ys := make([]R, len(xs))
+	for i, x := range xs {
+		v, err := f(i, x)
+		if err != nil {
+			return nil, err
+		}
+		ys[i] = v
+	}
+	return ys, nil
+}
+
 // PMap applies the function f to each element of the collection in parallel and returns a new collection with the results.
 func PMap[T any, R any](xs []T, f func(T) R) []R {
 	ys := make([]R, len(xs))

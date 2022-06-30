@@ -7,8 +7,8 @@ import (
 )
 
 // Map applies the function f to each element of the collection and returns a new collection with the results.
-func Map[T any](xs []T, f func(T) T) []T {
-	ys := make([]T, len(xs))
+func Map[T any, R any](xs []T, f func(T) R) []R {
+	ys := make([]R, len(xs))
 	for i, x := range xs {
 		ys[i] = f(x)
 	}
@@ -16,8 +16,8 @@ func Map[T any](xs []T, f func(T) T) []T {
 }
 
 // PMap applies the function f to each element of the collection in parallel and returns a new collection with the results.
-func PMap[T any](xs []T, f func(T) T) []T {
-	ys := make([]T, len(xs))
+func PMap[T any, R any](xs []T, f func(T) R) []R {
+	ys := make([]R, len(xs))
 
 	wg := new(sync.WaitGroup)
 

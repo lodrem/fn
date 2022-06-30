@@ -10,6 +10,17 @@ func NewSet[T comparable]() *Set[T] {
 	}
 }
 
+func NewSetFromSlice[T comparable](xs []T) *Set[T] {
+	s := &Set[T]{
+		m: make(map[T]struct{}, len(xs)),
+	}
+
+	for _, x := range xs {
+		s.Add(x)
+	}
+	return s
+}
+
 func (s *Set[T]) Add(value T) {
 	s.m[value] = struct{}{}
 }
